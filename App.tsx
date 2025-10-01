@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -30,6 +29,7 @@ const App: React.FC = () => {
         notes: ''
     });
     const [urlParams, setUrlParams] = useState<UrlParams>({});
+    const [isUploadTypePrefilled, setIsUploadTypePrefilled] = useState(false);
     
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
@@ -66,6 +66,7 @@ const App: React.FC = () => {
             const uploadType = params.get('uploadType')?.toLowerCase() as Selection;
             if (['home', 'vehicle', 'forms', 'claim'].includes(uploadType)) {
                 setSelection(uploadType);
+                setIsUploadTypePrefilled(true); // Mark that upload type was prefilled
             }
         }
         
@@ -160,6 +161,7 @@ const App: React.FC = () => {
                         formData={formData}
                         onFormChange={handleFormChange}
                         customInstructions={urlParams.photoInstructions}
+                        hideSelectionButtons={isUploadTypePrefilled}
                     />
 
                     <TrustBadges />
