@@ -298,18 +298,62 @@ export const UploadForm: React.FC<UploadFormProps> = (props) => {
             .filter(Boolean);
     }, [customInstructions]);
 
-    // Track which images belong to which category
-    const [categoryImages, setCategoryImages] = useState<{ [key: string]: UploadedImage[] }>({});
+    // Track which images belong to which category (maps image index to category name)
+    const [imageCategories, setImageCategories] = useState<{ [imageIndex: number]: string }>({});
 
     // Handle files selected for a specific category
     const handleCategoryFilesSelected = useCallback((category: string, files: File[]) => {
-        // Process files and tag them with the category
+        // Get the current count of uploaded images before adding new ones
+        const startIndex = uploadedImages.length;
+        
+        // Call parent's file handler to process and add images
         onFilesSelected(files);
         
-        // This is a simplified approach - in a full implementation, you'd want to
-        // track the category in the UploadedImage type and update the parent state
-        // For now, we'll just call the parent's onFilesSelected
-    }, [onFilesSelected]);
+        // After images are added, tag them with the category
+        // We'll update the mapping in the next render cycle
+        setTimeout(() => {
+            const newMappings: { [imageIndex: number]: string } = {};
+            files.forEach((_, fileIndex) => {
+                const imageIndex = startIndex + fileIndex;
+                newMappings[imageIndex] = category;
+            });
+            setImageCategories(prev => ({ ...prev, ...newMappings }));
+        }, 100);
+    }, [uploadedImages.length, onFilesSelected]);
+
+    // Get images for a specific category
+    const getImagesForCategory = useCallback((category: string) => {
+        return uploadedImages
+            .map((img, index) => ({ img, index }))
+            .filter(({ index }) => imageCategories[index] === category)
+            .map(({ img, index }) => ({ ...img, originalIndex: index }));
+    }, [uploadedImages, imageCategories]);
+
+    // Handle removing an image from a category
+    const handleCategoryRemoveImage = useCallback((originalIndex: number) => {
+        onRemoveImage(originalIndex);
+        
+        // Update category mappings by removing this index and adjusting higher indices
+        setImageCategories(prev => {
+            const newMappings: { [imageIndex: number]: string } = {};
+            Object.keys(prev).forEach(key => {
+                const index = parseInt(key);
+                if (index < originalIndex) {
+                    newMappings[index] = prev[index];
+                } else if (index > originalIndex) {
+                    newMappings[index - 1] = prev[index];
+                }
+            });
+            return newMappings;
+        });
+    }, [onRemoveImage]);
+
+    // Count completed items (items with at least one photo)
+    const completedItems = useMemo(() => {
+        return instructionItems.filter(item => 
+            getImagesForCategory(item).length > 0
+        ).length;
+    }, [instructionItems, getImagesForCategory]);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         onFilesSelected(acceptedFiles);
@@ -360,13 +404,13 @@ export const UploadForm: React.FC<UploadFormProps> = (props) => {
                                 <div className="flex justify-between items-center mb-1.5">
                                     <span className="text-xs font-semibold text-blue-800">Upload Progress</span>
                                     <span className="text-xs font-bold text-blue-900">
-                                        0 of {instructionItems.length} items complete
+                                        {completedItems} of {instructionItems.length} items complete
                                     </span>
                                 </div>
                                 <div className="w-full bg-blue-200 rounded-full h-2.5 overflow-hidden">
                                     <div 
                                         className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2.5 rounded-full transition-all duration-500 ease-out"
-                                        style={{ width: '0%' }}
+                                        style={{ width: `${instructionItems.length > 0 ? (completedItems / instructionItems.length) * 100 : 0}%` }}
                                     ></div>
                                 </div>
                             </div>
@@ -378,21 +422,24 @@ export const UploadForm: React.FC<UploadFormProps> = (props) => {
                         
                         {/* Photo upload items */}
                         <div className="space-y-4">
-                            {instructionItems.map((item, index) => (
-                                <PhotoItemUpload
-                                    key={index}
-                                    itemName={item}
-                                    itemNumber={index + 1}
-                                    totalItems={instructionItems.length}
-                                    images={uploadedImages.filter((_, i) => {
-                                        // This is simplified - ideally you'd track category per image
-                                        // For now, we'll show all images under general upload
-                                        return false;
-                                    })}
-                                    onFilesSelected={(files) => handleCategoryFilesSelected(item, files)}
-                                    onRemoveImage={onRemoveImage}
-                                />
-                            ))}
+                            {instructionItems.map((item, index) => {
+                                const categoryImages = getImagesForCategory(item);
+                                return (
+                                    <PhotoItemUpload
+                                        key={index}
+                                        itemName={item}
+                                        itemNumber={index + 1}
+                                        totalItems={instructionItems.length}
+                                        images={categoryImages}
+                                        onFilesSelected={(files) => handleCategoryFilesSelected(item, files)}
+                                        onRemoveImage={(imgIndex) => {
+                                            // Find the original index in the uploadedImages array
+                                            const originalIndex = (categoryImages[imgIndex] as any).originalIndex;
+                                            handleCategoryRemoveImage(originalIndex);
+                                        }}
+                                    />
+                                );
+                            })}
                         </div>
 
                         {/* General upload area for additional photos - enhanced styling */}
