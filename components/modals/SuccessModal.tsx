@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircleIcon, MailIcon } from '../icons';
+import { CheckCircleIcon } from '../icons';
 import { SubmissionResult, FormData } from '../../types';
 
 interface SuccessModalProps {
@@ -11,14 +11,6 @@ interface SuccessModalProps {
 
 export const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, submissionResult, formData }) => {
     if (!isOpen || !submissionResult) return null;
-
-    const handleSendEmail = () => {
-        if (!formData.email) {
-            alert("Please provide an email address in the form to receive email confirmation.");
-            return;
-        }
-        alert(`A confirmation receipt will be sent to ${formData.email}. Note: This is a demo; no email will be sent.`);
-    };
 
     return (
         <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center z-50 p-4" aria-modal="true">
@@ -35,15 +27,14 @@ export const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, sub
                     <p className="text-xs opacity-70">Please save this for your records</p>
                 </div>
                 
-                <div className="grid grid-cols-1 gap-3 mb-4">
-                     <button 
-                        onClick={handleSendEmail}
-                        className="w-full flex items-center justify-center gap-2 h-12 px-6 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-                     >
-                        <MailIcon className="w-5 h-5" />
-                        Email Receipt
-                    </button>
-                </div>
+                {formData.email && (
+                    <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 mb-6">
+                        <p className="text-sm text-blue-800 font-medium">
+                            📧 A confirmation email has been sent to:
+                        </p>
+                        <p className="text-blue-900 font-semibold mt-1">{formData.email}</p>
+                    </div>
+                )}
 
                 <button 
                     onClick={onClose}
