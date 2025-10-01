@@ -169,14 +169,14 @@
                 <div>
                     <label class="font-semibold text-slate-600 mb-2 block">2. Text Message Template</label>
                     <div class="relative">
-                        <textarea id="sms-template" readonly class="form-input bg-slate-50 w-full h-40 resize-none"></textarea>
+                        <textarea id="sms-template" readonly class="form-input bg-slate-50 w-full h-56 resize-none"></textarea>
                         <button id="copy-sms-btn" class="copy-btn absolute top-2 right-2">Copy</button>
                     </div>
                 </div>
                 <div>
                     <label class="font-semibold text-slate-600 mb-2 block">3. Email Template</label>
                     <div class="relative">
-                        <textarea id="email-template" readonly class="form-input bg-slate-50 w-full h-56 resize-none"></textarea>
+                        <textarea id="email-template" readonly class="form-input bg-slate-50 w-full h-96 resize-none"></textarea>
                         <button id="copy-email-btn" class="copy-btn absolute top-2 right-2">Copy</button>
                     </div>
                 </div>
@@ -266,12 +266,61 @@
 
             outputElements.generatedUrl.value = fullUrl;
 
-            const photoListText = instructions.length > 0
-                ? `\n\nWe will need photos of the following:\n- ${instructions.map(i => i.replace('CUSTOM: ', '')).join('\n- ')}`
-                : '';
+            // Enhanced photo list with emojis based on upload type
+            let photoListText = '';
+            if (instructions.length > 0) {
+                const photoEmoji = uploadType === 'vehicle' ? '🚗' : uploadType === 'claim' ? '📋' : '🏠';
+                photoListText = `\n\n${photoEmoji} We need photos of:\n✓ ${instructions.map(i => i.replace('CUSTOM: ', '')).join('\n✓ ')}`;
+            }
 
-            outputElements.smsTemplate.value = `Hi ${firstName}, this is Bill Layne Insurance. Please use the link below to securely upload your photos.${photoListText}\n\n${fullUrl}`;
-            outputElements.emailTemplate.value = `Subject: Photo Upload Request from Bill Layne Insurance\n\nHi ${firstName},\n\nPlease use the secure link below to upload the photos we need for your policy.${photoListText}\n\nClick here to upload: ${fullUrl}\n\nThank you,\nBill Layne Insurance Agency`;
+            // Enhanced SMS Template with emojis
+            outputElements.smsTemplate.value = `👋 Hi ${firstName}! This is Bill Layne Insurance.
+
+📸 Please use this secure link to upload your photos:
+${fullUrl}${photoListText}
+
+⏱️ Takes just 2-3 minutes!
+🔒 Your photos are securely encrypted
+
+Questions? Call us at 336-835-1993
+
+Thanks!
+Bill Layne Insurance`;
+
+            // Enhanced Email Template with emojis and better formatting
+            const uploadTypeText = uploadType === 'vehicle' ? '🚗 Vehicle' : 
+                                   uploadType === 'home' ? '🏠 Property' : 
+                                   uploadType === 'claim' ? '📋 Claim' : 
+                                   '📄 Document';
+
+            outputElements.emailTemplate.value = `Subject: 📸 ${uploadTypeText} Photo Upload Request - Bill Layne Insurance
+
+Hi ${firstName},
+
+Thank you for choosing Bill Layne Insurance! We need a few photos to complete your request.
+
+🔗 UPLOAD YOUR PHOTOS HERE:
+${fullUrl}${photoListText}
+
+✨ Quick & Easy Process:
+• Takes just 2-3 minutes
+• Works on any device (phone, tablet, computer)
+• Secure & encrypted upload
+• No app download required
+
+💡 PHOTO TIPS:
+• Use good lighting
+• Capture the entire subject
+• Make sure images are clear and in focus
+• You can take photos directly or upload from your gallery
+
+❓ Need Help?
+Call us at 336-835-1993 or reply to this email.
+
+Thank you,
+Bill Layne Insurance Agency
+1283 N Bridge St, Elkin NC 28621
+www.BillLayneInsurance.com`;
         }
 
         function toggleInputs() {
