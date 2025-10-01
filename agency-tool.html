@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +42,7 @@
 
     <div class="max-w-4xl mx-auto p-4 sm:p-8">
         <header class="text-center mb-8">
-            <img src="https://i.imgur.com/cBAgeX8.png" alt="Logo" class="h-16 mx-auto mb-4"/>
+            <img src="https://i.imgur.com/uVVShPM.png" alt="Logo" class="h-16 mx-auto mb-4"/>
             <h1 class="text-3xl font-bold text-slate-800">Photo Upload Link Generator</h1>
             <p class="text-slate-500 mt-2">Create a custom, pre-filled link for your customers.</p>
         </header>
@@ -111,31 +110,41 @@
                 <div id="photo-instructions-container">
                     <h2 class="text-xl font-bold text-slate-700 border-b pb-2 mb-4">Photo Instructions</h2>
                     
-                    <!-- Home Photos Checklist -->
                     <div id="home-photos-checklist" class="space-y-2">
-                        <h3 class="font-semibold text-slate-600">Home Photos Checklist:</h3>
-                        <div class="grid grid-cols-2 gap-x-4 gap-y-2">
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Front of Home"> Front of Home</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Back of Home"> Back of Home</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Left Side of Home"> Left Side</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Right Side of Home"> Right Side</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Roof"> Roof</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="HVAC Unit"> HVAC Unit</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Electrical Panel"> Electrical Panel</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Hot Water Heater"> Hot Water Heater</label>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-semibold text-slate-600">Home Photos Checklist:</h3>
+                            <div class="space-x-2">
+                                <button type="button" id="home-select-all" class="text-xs font-semibold text-blue-600 hover:underline">Select All</button>
+                                <button type="button" id="home-deselect-all" class="text-xs font-semibold text-slate-500 hover:underline">Clear</button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Front of Home"><span class="font-medium text-slate-700">Front of Home</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Back of Home"><span class="font-medium text-slate-700">Back of Home</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Left Side of Home"><span class="font-medium text-slate-700">Left Side</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Right Side of Home"><span class="font-medium text-slate-700">Right Side</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Roof"><span class="font-medium text-slate-700">Roof</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="HVAC Unit"><span class="font-medium text-slate-700">HVAC Unit</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Electrical Panel"><span class="font-medium text-slate-700">Electrical Panel</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Hot Water Heater"><span class="font-medium text-slate-700">Hot Water Heater</span></label>
                         </div>
                     </div>
 
-                    <!-- Vehicle Photos Checklist -->
                     <div id="vehicle-photos-checklist" class="hidden space-y-2">
-                         <h3 class="font-semibold text-slate-600">Vehicle Photos Checklist:</h3>
-                         <div class="grid grid-cols-2 gap-x-4 gap-y-2">
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Front of Vehicle"> Front of Vehicle</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Back of Vehicle"> Back of Vehicle</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Driver Side"> Driver Side</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Passenger Side"> Passenger Side</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="VIN Number"> VIN Number</label>
-                            <label class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded mr-2 instruction-check" value="Odometer"> Odometer</label>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-semibold text-slate-600">Vehicle Photos Checklist:</h3>
+                             <div class="space-x-2">
+                                <button type="button" id="vehicle-select-all" class="text-xs font-semibold text-blue-600 hover:underline">Select All</button>
+                                <button type="button" id="vehicle-deselect-all" class="text-xs font-semibold text-slate-500 hover:underline">Clear</button>
+                            </div>
+                        </div>
+                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Front of Vehicle"><span class="font-medium text-slate-700">Front of Vehicle</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Back of Vehicle"><span class="font-medium text-slate-700">Back of Vehicle</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Driver Side"><span class="font-medium text-slate-700">Driver Side</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Passenger Side"><span class="font-medium text-slate-700">Passenger Side</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="VIN Number"><span class="font-medium text-slate-700">VIN Number</span></label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"><input type="checkbox" class="h-5 w-5 rounded mr-3 text-blue-600 focus:ring-blue-500 instruction-check" value="Odometer"><span class="font-medium text-slate-700">Odometer</span></label>
                          </div>
                     </div>
 
@@ -150,8 +159,6 @@
             <!-- Output Column -->
             <div class="bg-white p-6 rounded-2xl shadow-lg space-y-6">
                 <h2 class="text-xl font-bold text-slate-700 border-b pb-2 mb-4">Generated Link & Templates</h2>
-
-                <!-- Link -->
                 <div>
                     <label class="font-semibold text-slate-600 mb-2 block">1. Custom Upload Link</label>
                     <div class="flex items-center gap-2">
@@ -159,8 +166,6 @@
                         <button id="copy-url-btn" class="copy-btn">Copy</button>
                     </div>
                 </div>
-
-                <!-- Text Message -->
                 <div>
                     <label class="font-semibold text-slate-600 mb-2 block">2. Text Message Template</label>
                     <div class="relative">
@@ -168,8 +173,6 @@
                         <button id="copy-sms-btn" class="copy-btn absolute top-2 right-2">Copy</button>
                     </div>
                 </div>
-
-                <!-- Email -->
                 <div>
                     <label class="font-semibold text-slate-600 mb-2 block">3. Email Template</label>
                     <div class="relative">
@@ -182,9 +185,7 @@
     </div>
 
     <script>
-        // --- IMPORTANT ---
-        // Replace this with the URL where your customer-facing uploader is hosted.
-        const UPLOADER_BASE_URL = window.location.href.replace('agency-tool.html', 'index.html');
+        const UPLOADER_BASE_URL = window.location.href.replace('agency-tool.html', 'index.html').split('?')[0];
 
         const formElements = {
             customerName: document.getElementById('customerName'),
@@ -225,7 +226,6 @@
             const customerName = formElements.customerName.value.trim();
             const firstName = customerName.split(' ')[0] || 'Valued Customer';
             
-            // Add params if they have a value
             const addParam = (key, element) => {
                 const value = element.value.trim();
                 if (value) params.set(key, value);
@@ -247,10 +247,9 @@
                 addParam('zip', formElements.zip);
             }
 
-            // Photo Instructions
             const instructions = [];
-            const activeChecklistId = uploadType === 'vehicle' ? '#vehicle-photos-checklist' : '#home-photos-checklist';
-            document.querySelectorAll(`${activeChecklistId} input:checked`).forEach(checkbox => {
+            const activeChecklistSelector = uploadType === 'vehicle' ? '#vehicle-photos-checklist' : '#home-photos-checklist';
+            document.querySelectorAll(`${activeChecklistSelector} input:checked`).forEach(checkbox => {
                 instructions.push(checkbox.value);
             });
             const customInstruction = formElements.customInstructions.value.trim();
@@ -267,7 +266,6 @@
 
             outputElements.generatedUrl.value = fullUrl;
 
-            // Update templates
             const photoListText = instructions.length > 0
                 ? `\n\nWe will need photos of the following:\n- ${instructions.map(i => i.replace('CUSTOM: ', '')).join('\n- ')}`
                 : '';
@@ -281,10 +279,9 @@
             
             containers.vehicleInfo.classList.toggle('hidden', !['vehicle', 'claim'].includes(uploadType));
             containers.address.classList.toggle('hidden', ['vehicle'].includes(uploadType));
-
-            containers.photoInstructions.classList.toggle('hidden', ['forms'].includes(uploadType));
-            containers.homeChecklist.classList.toggle('hidden', ['vehicle'].includes(uploadType));
-            containers.vehicleChecklist.classList.toggle('hidden', !['vehicle'].includes(uploadType));
+            containers.photoInstructions.classList.toggle('hidden', ['forms', 'claim'].includes(uploadType));
+            containers.homeChecklist.classList.toggle('hidden', uploadType === 'vehicle');
+            containers.vehicleChecklist.classList.toggle('hidden', uploadType !== 'vehicle');
 
             updateOutput();
         }
@@ -293,16 +290,31 @@
             navigator.clipboard.writeText(element.value).then(() => {
                 const originalText = button.textContent;
                 button.textContent = 'Copied!';
-                setTimeout(() => {
-                    button.textContent = originalText;
-                }, 2000);
+                setTimeout(() => button.textContent = originalText, 2000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);
                 alert('Failed to copy text.');
             });
         }
         
-        // Event Listeners
+        function setupChecklist(checklistId, selectAllBtnId, deselectAllBtnId) {
+            const checklist = document.getElementById(checklistId);
+            const selectAllBtn = document.getElementById(selectAllBtnId);
+            const deselectAllBtn = document.getElementById(deselectAllBtnId);
+            if (!checklist || !selectAllBtn || !deselectAllBtn) return;
+            const checkboxes = checklist.querySelectorAll('input[type="checkbox"]');
+
+            selectAllBtn.addEventListener('click', () => {
+                checkboxes.forEach(cb => cb.checked = true);
+                updateOutput();
+            });
+
+            deselectAllBtn.addEventListener('click', () => {
+                checkboxes.forEach(cb => cb.checked = false);
+                updateOutput();
+            });
+        }
+        
         Object.values(formElements).forEach(elementOrNodeList => {
             if (NodeList.prototype.isPrototypeOf(elementOrNodeList)) {
                 elementOrNodeList.forEach(el => el.addEventListener('input', updateOutput));
@@ -317,7 +329,9 @@
         copyButtons.sms.addEventListener('click', () => copyToClipboard(outputElements.smsTemplate, copyButtons.sms));
         copyButtons.email.addEventListener('click', () => copyToClipboard(outputElements.emailTemplate, copyButtons.email));
 
-        // Initial state setup
+        setupChecklist('home-photos-checklist', 'home-select-all', 'home-deselect-all');
+        setupChecklist('vehicle-photos-checklist', 'vehicle-select-all', 'vehicle-deselect-all');
+        
         toggleInputs();
 
     </script>

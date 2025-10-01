@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { PhoneIcon, MailIcon } from './icons';
 
@@ -6,7 +5,7 @@ export const Footer: React.FC = () => {
     return (
         <footer className="bg-slate-900 text-white mt-12 py-10 px-4">
             <div className="max-w-4xl mx-auto text-center">
-                <img src="https://i.imgur.com/cBAgeX8.png" alt="Bill Layne Insurance Agency" className="h-12 w-auto mx-auto mb-4 filter brightness-0 invert" />
+                <img src="https://i.imgur.com/uVVShPM.png" alt="Bill Layne Insurance Agency" className="h-12 w-auto mx-auto mb-4" />
                 <h3 className="text-xl font-semibold">Bill Layne Insurance Agency</h3>
                 <p className="text-slate-400 mt-1">1283 N Bridge St, Elkin NC 28621</p>
                 <div className="flex justify-center items-center space-x-6 my-4">

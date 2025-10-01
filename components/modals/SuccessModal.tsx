@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CheckCircleIcon, MailIcon } from '../icons';
 import { SubmissionResult, FormData } from '../../types';
@@ -50,7 +49,7 @@ export const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, sub
                     onClick={onClose}
                     className="w-full h-12 px-6 bg-slate-600 text-white font-bold rounded-lg shadow-md hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-all duration-200"
                 >
-                    Done
+                    Submit Another
                 </button>
             </div>
         </div>

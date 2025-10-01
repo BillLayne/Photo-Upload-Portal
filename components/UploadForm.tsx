@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Selection, UploadedImage, FormData } from '../types';
@@ -165,7 +164,8 @@ export const UploadForm: React.FC<UploadFormProps> = (props) => {
 
                     <div className="flex flex-col items-center justify-center">
                         <UploadCloudIcon className="w-12 h-12 text-blue-500 mb-2" />
-                        <p className="font-bold text-slate-700">Drag & drop files or</p>
+                        <p className="font-bold text-slate-700">Tap a button to upload, or drag files here.</p>
+                        <p className="text-sm text-slate-500 mt-1">Accepts JPG, PNG, and PDF files.</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 w-full max-w-sm">
                             <button type="button" onClick={() => cameraInputRef.current?.click()} className="flex items-center justify-center gap-2 py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">
                                 <CameraIcon className="w-5 h-5"/> Take Photo
@@ -181,11 +181,19 @@ export const UploadForm: React.FC<UploadFormProps> = (props) => {
             </div>
 
             <div className="space-y-6 mt-8">
-                <FormSection title="Contact Information" icon={<UserIcon />} isDefaultOpen>
-                    <FormInput label="Full Name" name="customerName" value={formData.customerName} onChange={onFormChange} isRequired placeholder="John Smith" />
-                    <FormInput label="Phone" name="phone" value={formData.phone} onChange={onFormChange} isRequired type="tel" placeholder="(555) 123-4567" />
-                    <FormInput label="Email" name="email" value={formData.email} onChange={onFormChange} type="email" placeholder="you@example.com" />
-                </FormSection>
+                <div className="border border-slate-200 rounded-xl overflow-hidden">
+                    <div className="w-full flex items-center p-4 bg-slate-50">
+                        <div className="flex items-center gap-3 font-semibold text-slate-700">
+                            <span className="text-blue-600"><UserIcon /></span>
+                            Contact Information
+                        </div>
+                    </div>
+                    <div className="p-4 space-y-4">
+                        <FormInput label="Full Name" name="customerName" value={formData.customerName} onChange={onFormChange} isRequired placeholder="John Smith" />
+                        <FormInput label="Phone" name="phone" value={formData.phone} onChange={onFormChange} isRequired type="tel" placeholder="(555) 123-4567" />
+                        <FormInput label="Email" name="email" value={formData.email} onChange={onFormChange} type="email" placeholder="you@example.com" />
+                    </div>
+                </div>
 
                 <FormSection title={['home', 'forms'].includes(selection) ? 'Property Details' : 'Vehicle Details'} icon={<MapPinIcon />}>
                     {['home', 'forms', 'claim'].includes(selection) && (
