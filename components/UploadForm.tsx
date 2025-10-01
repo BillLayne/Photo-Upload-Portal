@@ -282,10 +282,11 @@ interface UploadFormProps {
     formData: FormData;
     onFormChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     customInstructions?: string;
+    hideSelectionButtons?: boolean;
 }
 
 export const UploadForm: React.FC<UploadFormProps> = (props) => {
-    const { selection, setSelection, uploadedImages, onFilesSelected, onRemoveImage, formData, onFormChange, customInstructions } = props;
+    const { selection, setSelection, uploadedImages, onFilesSelected, onRemoveImage, formData, onFormChange, customInstructions, hideSelectionButtons } = props;
     const fileInputRef = useRef<HTMLInputElement>(null);
     const cameraInputRef = useRef<HTMLInputElement>(null);
 
@@ -370,12 +371,14 @@ export const UploadForm: React.FC<UploadFormProps> = (props) => {
 
     return (
         <form onSubmit={e => e.preventDefault()}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <SelectionButton label="Home" icon={<HomeIcon />} value="home" current={selection} onClick={setSelection} />
-                <SelectionButton label="Vehicle" icon={<CarIcon />} value="vehicle" current={selection} onClick={setSelection} />
-                <SelectionButton label="Forms" icon={<FileIcon />} value="forms" current={selection} onClick={setSelection} />
-                <SelectionButton label="Claim" icon={<AlertTriangleIcon />} value="claim" current={selection} onClick={setSelection} />
-            </div>
+            {!hideSelectionButtons && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <SelectionButton label="Home" icon={<HomeIcon />} value="home" current={selection} onClick={setSelection} />
+                    <SelectionButton label="Vehicle" icon={<CarIcon />} value="vehicle" current={selection} onClick={setSelection} />
+                    <SelectionButton label="Forms" icon={<FileIcon />} value="forms" current={selection} onClick={setSelection} />
+                    <SelectionButton label="Claim" icon={<AlertTriangleIcon />} value="claim" current={selection} onClick={setSelection} />
+                </div>
+            )}
 
             <div className="bg-amber-50 border-2 border-amber-400 rounded-xl p-6">
                 <div className="flex justify-between items-center mb-4">
