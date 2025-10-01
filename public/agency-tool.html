@@ -380,15 +380,44 @@ www.BillLayneInsurance.com`;
         function toggleInputs() {
             const uploadType = formElements.uploadType.value;
             
-            containers.vehicleInfo.classList.toggle('hidden', !['vehicle', 'claim'].includes(uploadType));
-            containers.address.classList.toggle('hidden', ['vehicle'].includes(uploadType));
-            containers.photoInstructions.classList.toggle('hidden', false); // Always show photo instructions
+            // Show/hide vehicle info and address fields based on upload type
+            if (['vehicle', 'claim'].includes(uploadType)) {
+                containers.vehicleInfo.classList.remove('hidden');
+            } else {
+                containers.vehicleInfo.classList.add('hidden');
+            }
+            
+            if (uploadType === 'vehicle') {
+                containers.address.classList.add('hidden');
+            } else {
+                containers.address.classList.remove('hidden');
+            }
+            
+            // Always show photo instructions container
+            containers.photoInstructions.classList.remove('hidden');
             
             // Show/hide appropriate checklist based on upload type
-            containers.homeChecklist.classList.toggle('hidden', uploadType !== 'home');
-            containers.vehicleChecklist.classList.toggle('hidden', uploadType !== 'vehicle');
-            containers.claimChecklist.classList.toggle('hidden', uploadType !== 'claim');
-            containers.formsChecklist.classList.toggle('hidden', uploadType !== 'forms');
+            if (uploadType === 'home') {
+                containers.homeChecklist.classList.remove('hidden');
+                containers.vehicleChecklist.classList.add('hidden');
+                containers.claimChecklist.classList.add('hidden');
+                containers.formsChecklist.classList.add('hidden');
+            } else if (uploadType === 'vehicle') {
+                containers.homeChecklist.classList.add('hidden');
+                containers.vehicleChecklist.classList.remove('hidden');
+                containers.claimChecklist.classList.add('hidden');
+                containers.formsChecklist.classList.add('hidden');
+            } else if (uploadType === 'claim') {
+                containers.homeChecklist.classList.add('hidden');
+                containers.vehicleChecklist.classList.add('hidden');
+                containers.claimChecklist.classList.remove('hidden');
+                containers.formsChecklist.classList.add('hidden');
+            } else if (uploadType === 'forms') {
+                containers.homeChecklist.classList.add('hidden');
+                containers.vehicleChecklist.classList.add('hidden');
+                containers.claimChecklist.classList.add('hidden');
+                containers.formsChecklist.classList.remove('hidden');
+            }
 
             updateOutput();
         }
